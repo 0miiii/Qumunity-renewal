@@ -1,7 +1,13 @@
-import { useState } from "react";
+import React from 'react';
+import Button from '@mui/material/Button';
 
 function App() {
-  return <div className="App">Qumunity</div>;
+  return (
+    <div className="App">
+      <div>Qumunity</div>
+      <Button variant="contained">Hello World</Button>
+    </div>
+  );
 }
 
 export default App;
