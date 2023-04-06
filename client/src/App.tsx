@@ -1,12 +1,11 @@
 import React from 'react';
-import Button from '@mui/material/Button';
+import Header from './components/Header/Header';
 
 function App() {
   return (
-    <div className="App">
-      <div>Qumunity</div>
-      <Button variant="contained">Hello World</Button>
-    </div>
+    <>
+      <Header />
+    </>
   );
 }
 
