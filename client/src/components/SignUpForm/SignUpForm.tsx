@@ -1,9 +1,11 @@
 import React from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField, Button } from "@mui/material";
 import { SignUpSchema } from "../../libs/authValidationYup";
+import { auth } from "../../libs/firebaseAuthentication";
 import * as Styled from "./SignUpForm.style";
 
 type FormData = yup.InferType<typeof SignUpSchema>;
@@ -25,8 +27,15 @@ const SignUpForm = () => {
   });
 
   const SignUpSubmitHandler = handleSubmit((data) => {
-    const { password_check, ...userinfo } = data;
-    console.log(userinfo);
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   });
 
   return (
