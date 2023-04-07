@@ -1,8 +1,7 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import MainPage from './pages/MainPage/MainPage';
-import SignInPage from './pages/SignInPage/SignInPage';
-import SignUpPage from './pages/SignUpPage/SignUpPage';
+import AuthPage from './pages/AuthPage/AuthPage';
 import MyPage from './pages/MyPage/MyPage';
 import DetailPage from './pages/DetailPage/DetailPage';
 import TagListPage from './pages/TagListPage/TagListPage';
@@ -31,7 +30,7 @@ const routerData: IRouter[] = [
     id: 1,
     path: '/sign-in',
     label: 'SignIn',
-    element: <SignInPage />,
+    element: <AuthPage />,
     withAuth: false,
     withNavi: false,
   },
@@ -39,7 +38,7 @@ const routerData: IRouter[] = [
     id: 2,
     path: '/sign-up',
     label: 'SignUp',
-    element: <SignUpPage />,
+    element: <AuthPage />,
     withAuth: false,
     withNavi: false,
   },
@@ -69,7 +68,7 @@ const routerData: IRouter[] = [
   },
   {
     id: 6,
-    path: '/taglist',
+    path: '/userlist',
     label: '유저',
     element: <UserListPage />,
     withAuth: false,
