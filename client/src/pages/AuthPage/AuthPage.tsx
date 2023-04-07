@@ -4,7 +4,7 @@ import * as Styled from './AuthPage.style';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
 import SignInForm from '../../components/SignInForm/SignInForm';
 
-const SignUpPage = () => {
+const AuthPage = () => {
   const location = useLocation().pathname;
   const AuthForm = location === '/sign-up' ? <SignUpForm /> : <SignInForm />;
 
@@ -17,4 +17,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default AuthPage;
