@@ -24,7 +24,10 @@ const SignUpForm = () => {
     mode: "onChange",
   });
 
-  const SignUpSubmitHandler = handleSubmit((data) => console.log(data));
+  const SignUpSubmitHandler = handleSubmit((data) => {
+    const { password_check, ...userinfo } = data;
+    console.log(userinfo);
+  });
 
   return (
     <Styled.Container onSubmit={SignUpSubmitHandler}>
