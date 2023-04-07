@@ -15,10 +15,10 @@ const SignUpForm = () => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      nickname: "",
-      email: "",
-      password: "",
-      password_check: "",
+      nickname: "test",
+      email: "test@naver.com",
+      password: "aaaaaa1@",
+      password_check: "aaaaaa1@",
     },
     resolver: yupResolver(SignUpSchema),
     mode: "onChange",
