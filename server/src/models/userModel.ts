@@ -1,12 +1,11 @@
 import { Schema, model, Document } from "mongoose";
-import { hashPassword, comparePassword } from "../libs/hash";
+import { hashPassword } from "../libs/hash";
 
 export interface IUser extends Document {
   email: string;
   password: string;
   nickname: string;
   photoURL: string;
-  verifyPassword: (enteredPassword: string) => Promise<boolean>;
 }
 
 const userSchema = new Schema<IUser>(
@@ -23,10 +22,6 @@ userSchema.pre<IUser>("save", async function (next) {
   this.password = await hashPassword(this.password);
   next();
 });
-
-userSchema.methods.verifyPassword = async function (enteredPassword: string) {
-  return await comparePassword(enteredPassword, this.password);
-};
 
 const UserModel = model<IUser>("User", userSchema);
 
