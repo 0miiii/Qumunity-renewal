@@ -1,25 +1,39 @@
-import React from 'react';
-import { Button } from '@mui/material';
-import * as Styled from './Header.style';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import { PATH } from "../../router";
+import * as Styled from "./Header.style";
 
 const Header = () => {
   return (
     <Styled.Container>
       <Styled.Inner>
-        <div>로고</div>
+        <Link to={PATH.MAIN}>
+          <div>로고</div>
+        </Link>
         <Styled.Nav>
           <ul>
-            <li>질문</li>
-            <li>유저</li>
-            <li>태그</li>
+            <Link to={PATH.MAIN}>
+              <li>질문</li>
+            </Link>
+            <Link to={PATH.USER_LIST}>
+              <li>유저</li>
+            </Link>
+            <Link to={PATH.TAG_LIST}>
+              <li>태그</li>
+            </Link>
           </ul>
         </Styled.Nav>
         <Styled.BtnGroup>
           <li>
-            <Button variant="contained">로그인</Button>
+            <Link to={PATH.SIGN_IN}>
+              <Button variant="contained">로그인</Button>
+            </Link>
           </li>
           <li>
-            <Button variant="contained">회원가입</Button>
+            <Link to={PATH.SIGN_UP}>
+              <Button variant="contained">회원가입</Button>
+            </Link>
           </li>
         </Styled.BtnGroup>
       </Styled.Inner>
