@@ -1,28 +1,18 @@
 import { Schema, model, Document } from "mongoose";
 
 export interface IUser extends Document {
-  userNum: number;
   email: string;
-  displayName: string;
-  uid: string;
+  password: string;
+  nickName: string;
   photoURL: string;
-  voteLike: Schema.Types.ObjectId;
-  voteDisLike: Schema.Types.ObjectId;
-  questions: number;
-  answers: number;
 }
 
-const userSchema = new Schema(
+const userSchema = new Schema<IUser>(
   {
-    userNum: Number,
     email: String,
-    displayName: String,
-    uid: String,
+    password: String,
+    nickName: String,
     photoURL: String,
-    voteLike: [{ type: Schema.Types.ObjectId, default: [] }],
-    voteDisLike: [{ type: Schema.Types.ObjectId, default: [] }],
-    questions: { type: Number, default: 0 },
-    answers: { type: Number, default: 0 },
   },
   { collection: "users" }
 );
