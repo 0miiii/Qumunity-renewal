@@ -8,20 +8,20 @@ const Header = () => {
   return (
     <Styled.Container>
       <Styled.Inner>
-        <Link to={PATH.MAIN}>
-          <div>로고</div>
-        </Link>
+        <div>
+          <Link to={PATH.MAIN}>로고</Link>
+        </div>
         <Styled.Nav>
           <ul>
-            <Link to={PATH.MAIN}>
-              <li>질문</li>
-            </Link>
-            <Link to={PATH.USER_LIST}>
-              <li>유저</li>
-            </Link>
-            <Link to={PATH.TAG_LIST}>
-              <li>태그</li>
-            </Link>
+            <li>
+              <Link to={PATH.MAIN}>질문</Link>
+            </li>
+            <li>
+              <Link to={PATH.USER_LIST}>유저</Link>
+            </li>
+            <li>
+              <Link to={PATH.TAG_LIST}>태그</Link>
+            </li>
           </ul>
         </Styled.Nav>
         <Styled.BtnGroup>
