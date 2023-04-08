@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
 import * as userService from "../services/userService";
 import { verifyPassword } from "../libs/hash";
+import { createToken } from "../libs/jsonwebtoken";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
     await userService.createUser({ ...req.body, photoURL: "test" });
     res.status(200).send({
       message: "Qumunity에 오신 것을 환영합니다",
-      token: "임시토큰",
+      token: createToken({ email: req.body.email }),
     });
   } catch (err) {
     res.status(400).send({
@@ -27,7 +28,7 @@ export const loginUser = async (req: Request, res: Response) => {
 
     res.status(200).send({
       message: "Qumunity에 오신 것을 환영합니다",
-      token: "임시토큰",
+      token: createToken({ email: req.body.email }),
     });
   } catch (err) {
     res.status(400).send({
