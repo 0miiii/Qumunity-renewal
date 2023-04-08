@@ -12,20 +12,20 @@ interface IQuestionInput {
 }
 
 const QuestionInput: React.FC<IQuestionInput> = ({ title, summary, type }) => {
-  let inputType: React.ReactNode;
-
-  if (type === "title") {
-    inputType = <QuestionTextInput />;
-  }
-  if (type === "summary") {
-    inputType = <QuestionTextarea />;
-  }
-  if (type === "tag") {
-    inputType = <QuestionTagInput />;
-  }
-  if (type === "editor") {
-    inputType = <QuestionEditor />;
-  }
+  const inputType: React.ReactNode = (() => {
+    switch (type) {
+      case "title":
+        return <QuestionTextInput />;
+      case "summary":
+        return <QuestionTextarea />;
+      case "tag":
+        return <QuestionTagInput />;
+      case "editor":
+        return <QuestionEditor />;
+      default:
+        throw new Error(`${type} 은 적절하지 않습니다`);
+    }
+  })();
 
   return (
     <Styled.Container>
