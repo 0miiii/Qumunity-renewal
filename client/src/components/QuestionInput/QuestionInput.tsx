@@ -1,7 +1,13 @@
 import React from "react";
 
 const QuestionInput = () => {
-  return <div>QuestionInput</div>;
+  return (
+    <div>
+      <label htmlFor="title">제목</label>
+      <p>문단</p>
+      <input id="title" type="text" />
+    </div>
+  );
 };
 
 export default QuestionInput;
