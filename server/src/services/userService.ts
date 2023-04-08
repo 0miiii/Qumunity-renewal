@@ -4,8 +4,18 @@ export const createUser = async (user: IUser) => {
   const newUser = new UserModel(user).save();
 
   if (!newUser) {
-    throw new Error("유저 생성에 실패했습니다.");
+    throw new Error("유저 생성에 실패했습니다");
   }
 
   return newUser;
+};
+
+export const findUser = async (email: string) => {
+  const user = UserModel.findOne({ email });
+
+  if (!user) {
+    throw new Error("존재하지 않는 유저입니다");
+  }
+
+  return user;
 };
