@@ -1,4 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+
+interface INavLi {
+  focus: boolean;
+}
 
 export const Container = styled.header`
   width: 100%;
@@ -25,6 +29,10 @@ export const Nav = styled.nav`
     display: flex;
     gap: 10px;
   }
+`;
+
+export const NavLi = styled.li<INavLi>`
+  color: ${(props) => (props.focus ? "red" : "black")};
 `;
 
 export const BtnGroup = styled.ul`

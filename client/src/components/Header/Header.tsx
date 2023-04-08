@@ -1,10 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@mui/material";
 import { PATH } from "../../router";
 import * as Styled from "./Header.style";
 
 const Header = () => {
+  const location = useLocation().pathname;
+
+  console.log(location);
   return (
     <Styled.Container>
       <Styled.Inner>
@@ -13,15 +16,15 @@ const Header = () => {
         </div>
         <Styled.Nav>
           <ul>
-            <li>
+            <Styled.NavLi focus={PATH.MAIN === location}>
               <Link to={PATH.MAIN}>질문</Link>
-            </li>
-            <li>
+            </Styled.NavLi>
+            <Styled.NavLi focus={PATH.USER_LIST === location}>
               <Link to={PATH.USER_LIST}>유저</Link>
-            </li>
-            <li>
+            </Styled.NavLi>
+            <Styled.NavLi focus={PATH.TAG_LIST === location}>
               <Link to={PATH.TAG_LIST}>태그</Link>
-            </li>
+            </Styled.NavLi>
           </ul>
         </Styled.Nav>
         <Styled.BtnGroup>
