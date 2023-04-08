@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { TextField, Button } from "@mui/material";
+import { saveAccessTokenInLocalStorage } from "../../utils/tokenHandler";
 import * as Styled from "./SignInForm.style";
 
 const SignInForm = () => {
@@ -15,7 +16,7 @@ const SignInForm = () => {
       password: formData.get("password"),
     });
 
-    console.log(response);
+    saveAccessTokenInLocalStorage(response.data.token);
   };
 
   return (

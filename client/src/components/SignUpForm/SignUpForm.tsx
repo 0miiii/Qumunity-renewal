@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios";
-import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField, Button } from "@mui/material";
 import { SignUpSchema } from "../../libs/authValidationYup";
+import { saveAccessTokenInLocalStorage } from "../../utils/tokenHandler";
 import * as Styled from "./SignUpForm.style";
 
 type FormData = yup.InferType<typeof SignUpSchema>;
@@ -31,8 +32,7 @@ const SignUpForm = () => {
       password: data.password,
       nickname: data.nickname,
     });
-
-    console.log(response);
+    saveAccessTokenInLocalStorage(response.data.token);
   });
 
   return (
