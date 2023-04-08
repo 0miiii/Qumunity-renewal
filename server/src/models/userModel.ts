@@ -4,7 +4,7 @@ import { hashPassword, comparePassword } from "../libs/hash";
 export interface IUser extends Document {
   email: string;
   password: string;
-  nickName: string;
+  nickname: string;
   photoURL: string;
   verifyPassword: (enteredPassword: string) => Promise<boolean>;
 }
@@ -13,7 +13,7 @@ const userSchema = new Schema<IUser>(
   {
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    nickName: { type: String, required: true },
+    nickname: { type: String, required: true },
     photoURL: { type: String, required: true },
   },
   { collection: "users" }
