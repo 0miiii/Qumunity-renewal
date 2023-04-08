@@ -1,9 +1,9 @@
 import { Router, Request, Response } from "express";
+import * as userController from "../controllers/userController";
 
 const router = Router();
 
-router.get("/test", (req: Request, res: Response) => {
-  res.send("Hello World!");
-});
+router.get("/signUp", userController.signUp);
+router.get("/signIn", userController.signIn);
 
 export default router;
