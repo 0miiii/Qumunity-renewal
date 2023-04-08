@@ -19,8 +19,8 @@ interface IRouter {
 
 export const PATH = {
   MAIN: "/",
-  SIGN_IN: "/sign-in",
-  SIGN_UP: "/sign-up",
+  SIGN_IN: "/signIn",
+  SIGN_UP: "/signUp",
   MYPAGE: "/mypage/:id",
   DETAIL: "/detail/:id",
   TAG_LIST: "/taglist",
