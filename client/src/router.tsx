@@ -6,6 +6,7 @@ import MyPage from "./pages/MyPage/MyPage";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import TagListPage from "./pages/TagListPage/TagListPage";
 import UserListPage from "./pages/UserListPage/UserListPage";
+import GlobalLayout from "./layouts/GlobalLayout";
 import AuthGaurdLayout from "./layouts/AuthGaurdLayout";
 
 interface IRouter {
@@ -91,10 +92,17 @@ export const routers = createBrowserRouter(
     if (router.withAuth) {
       return {
         path: router.path,
-        element: <AuthGaurdLayout>{router.element}</AuthGaurdLayout>,
+        element: (
+          <GlobalLayout>
+            <AuthGaurdLayout>{router.element}</AuthGaurdLayout>
+          </GlobalLayout>
+        ),
       };
     }
 
-    return { path: router.path, element: router.element };
+    return {
+      path: router.path,
+      element: <GlobalLayout>{router.element}</GlobalLayout>,
+    };
   })
 );
