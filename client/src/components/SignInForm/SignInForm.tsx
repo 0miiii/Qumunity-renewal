@@ -1,16 +1,21 @@
 import React from "react";
+import axios from "axios";
 import { TextField, Button } from "@mui/material";
 import * as Styled from "./SignInForm.style";
 
 const SignInForm = () => {
-  const loginSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const loginSubmitHandler = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const loginInfo = {
+
+    const response = await axios.post("http://localhost:3000/user/signIn", {
       email: formData.get("email"),
       password: formData.get("password"),
-    };
-    console.log(loginInfo);
+    });
+
+    console.log(response);
   };
 
   return (
@@ -21,6 +26,7 @@ const SignInForm = () => {
         variant="outlined"
         type="email"
         required
+        defaultValue="test@naver.com"
       />
       <TextField
         name="password"
@@ -28,6 +34,7 @@ const SignInForm = () => {
         variant="outlined"
         type="password"
         required
+        defaultValue="aaaaaa1@"
       />
       <Button variant="contained" type="submit">
         로그인
