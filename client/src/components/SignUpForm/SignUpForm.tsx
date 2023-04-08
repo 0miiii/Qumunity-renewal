@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -25,7 +26,13 @@ const SignUpForm = () => {
   });
 
   const SignUpSubmitHandler = handleSubmit(async (data) => {
-    console.log(data);
+    const response = await axios.post("http://localhost:3000/user/signUp", {
+      email: data.email,
+      password: data.password,
+      nickname: data.nickname,
+    });
+
+    console.log(response);
   });
 
   return (
