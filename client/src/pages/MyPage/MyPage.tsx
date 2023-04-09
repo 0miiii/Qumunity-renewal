@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
+import * as Styled from "./MyPage.style";
 
 const MyPage = () => {
-  return <div>MyPage</div>;
+  return <Styled.Container>MyPage</Styled.Container>;
 };
 
 export default MyPage;
