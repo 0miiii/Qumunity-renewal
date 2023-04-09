@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { PATH } from "../router";
-import { getAccessTokenFromLocalStorage } from "../utils/tokenHandler";
+import { loginCheck } from "../apis/authApi";
 import { logout } from "../store/reducers/authSlice";
 
 interface Iprops {
@@ -16,13 +15,8 @@ const AuthGaurdLayout: React.FC<Iprops> = ({ children }) => {
   const dispatch = useDispatch();
 
   const validateToken = async () => {
-    const token = getAccessTokenFromLocalStorage();
     try {
-      await axios.get("http://localhost:3000/user/auth", {
-        headers: {
-          Authorization: token,
-        },
-      });
+      await loginCheck();
       setIsLoading(false);
     } catch (err) {
       alert("로그인이 필요합니다");
