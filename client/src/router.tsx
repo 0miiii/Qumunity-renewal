@@ -26,6 +26,7 @@ export const PATH = {
   DETAIL: "/detail/:id",
   TAG_LIST: "/taglist",
   USER_LIST: "/userlist",
+  QUESTION: "/question",
 };
 
 const routerData: IRouter[] = [
