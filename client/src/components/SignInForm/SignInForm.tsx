@@ -1,24 +1,26 @@
 import React from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { TextField, Button } from "@mui/material";
 import { login } from "../../store/reducers/authSlice";
 import { PATH } from "../../router";
+import { signInRequest } from "../../apis/authApi";
 import * as Styled from "./SignInForm.style";
 
 const SignInForm = () => {
   const dipatch = useDispatch();
   const routeTo = useNavigate();
+
   const loginSubmitHandler = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+
     try {
-      const response = await axios.post("http://localhost:3000/user/signIn", {
-        email: formData.get("email"),
-        password: formData.get("password"),
+      const response = await signInRequest({
+        email: formData.get("email") as string,
+        password: formData.get("password") as string,
       });
       dipatch(login(response.data.token));
       routeTo(PATH.MAIN);
