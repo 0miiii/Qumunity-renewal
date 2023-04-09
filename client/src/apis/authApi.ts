@@ -21,3 +21,7 @@ export const signInRequest = (userinfo: ISignInUserInfo) => {
 export const signUpRequest = (userinfo: ISignUpUserInfo) => {
   return instance.post<IAuthResponse>("/user/signUp", userinfo);
 };
+
+export const loginCheck = () => {
+  return instance.get("/user/auth");
+};
