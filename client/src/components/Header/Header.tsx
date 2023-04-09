@@ -1,12 +1,19 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@mui/material";
+import { RootState } from "../../store/store";
 import { PATH } from "../../router";
+import { logout } from "../../store/reducers/authSlice";
 import * as Styled from "./Header.style";
 
 const Header = () => {
   const location = useLocation().pathname;
-
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
   return (
     <Styled.Container>
       <Styled.Inner>
@@ -28,13 +35,20 @@ const Header = () => {
         </Styled.Nav>
         <Styled.BtnGroup>
           <li>
-            <Link to={PATH.SIGN_IN}>
-              <Button variant="contained">로그인</Button>
+            <Link to={isLogin ? PATH.MYPAGE : PATH.SIGN_IN}>
+              <Button variant="contained">
+                {isLogin ? "마이페이지" : "로그인"}
+              </Button>
             </Link>
           </li>
           <li>
-            <Link to={PATH.SIGN_UP}>
-              <Button variant="contained">회원가입</Button>
+            <Link to={isLogin ? PATH.SIGN_IN : PATH.SIGN_UP}>
+              <Button
+                variant="contained"
+                onClick={isLogin ? logoutHandler : undefined}
+              >
+                {isLogin ? "로그아웃" : "회원가입"}
+              </Button>
             </Link>
           </li>
         </Styled.BtnGroup>
