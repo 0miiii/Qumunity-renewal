@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import * as userService from "../services/userService";
 import { verifyPassword } from "../libs/hash";
-import { createToken } from "../libs/jsonwebtoken";
+import { createToken, verifyToken } from "../libs/jsonwebtoken";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -20,7 +20,7 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
-export const loginUser = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
   try {
     const user = await userService.findUser(req.body.email);
     const isValid = await verifyPassword(req.body.password, user.password);
@@ -39,5 +39,20 @@ export const loginUser = async (req: Request, res: Response) => {
     res.status(400).send({
       message: "로그인에 실패했습니다",
     });
+  }
+};
+
+export const userAuth = (req: Request, res: Response) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: "로그인이 필요합니다" });
+  }
+
+  try {
+    verifyToken(token);
+    return res.status(200).json({ message: "인증되었습니다" });
+  } catch (error) {
+    return res.status(401).json({ message: "로그인이 필요합니다" });
   }
 };
