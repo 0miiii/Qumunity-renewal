@@ -6,6 +6,7 @@ import MyPage from "./pages/MyPage/MyPage";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import TagListPage from "./pages/TagListPage/TagListPage";
 import UserListPage from "./pages/UserListPage/UserListPage";
+import QuestionPage from "./pages/QuestionPage/QuestionPage";
 import GlobalLayout from "./layouts/GlobalLayout";
 import AuthGaurdLayout from "./layouts/AuthGaurdLayout";
 
@@ -85,6 +86,14 @@ const routerData: IRouter[] = [
     element: <UserListPage />,
     withAuth: false,
     withNavi: true,
+  },
+  {
+    id: 7,
+    path: PATH.QUESTION,
+    label: "질문",
+    element: <QuestionPage />,
+    withAuth: true,
+    withNavi: false,
   },
 ];
 
