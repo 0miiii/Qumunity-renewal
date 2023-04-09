@@ -1,16 +1,21 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TextField, Button } from "@mui/material";
 import { SignUpSchema } from "../../libs/authValidationYup";
-import { saveAccessTokenInLocalStorage } from "../../utils/tokenHandler";
+import { login } from "../../store/reducers/authSlice";
+import { PATH } from "../../router";
 import * as Styled from "./SignUpForm.style";
 
 type FormData = yup.InferType<typeof SignUpSchema>;
 
 const SignUpForm = () => {
+  const routeTo = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -27,12 +32,17 @@ const SignUpForm = () => {
   });
 
   const SignUpSubmitHandler = handleSubmit(async (data) => {
-    const response = await axios.post("http://localhost:3000/user/signUp", {
-      email: data.email,
-      password: data.password,
-      nickname: data.nickname,
-    });
-    saveAccessTokenInLocalStorage(response.data.token);
+    try {
+      const response = await axios.post("http://localhost:3000/user/signUp", {
+        email: data.email,
+        password: data.password,
+        nickname: data.nickname,
+      });
+      dispatch(login(response.data.token));
+      routeTo(PATH.MAIN);
+    } catch (err) {
+      console.log(err);
+    }
   });
 
   return (
