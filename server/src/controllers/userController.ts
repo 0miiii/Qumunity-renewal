@@ -24,7 +24,7 @@ export const loginUser = async (req: Request, res: Response) => {
   try {
     const user = await userService.findUser(req.body.email);
     const isValid = await verifyPassword(req.body.password, user.password);
-    console.log(isValid);
+
     if (!isValid) {
       throw new Error("비밀번호가 일치하지 않습니다");
     }
