@@ -7,6 +7,7 @@ export const Container = styled.div`
   background-color: var(--main-bgc);
 
   input {
+    width: 100%;
     padding: 5px;
   }
 `;
