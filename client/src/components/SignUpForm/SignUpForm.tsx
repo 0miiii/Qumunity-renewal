@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
@@ -9,6 +8,7 @@ import { TextField, Button } from "@mui/material";
 import { SignUpSchema } from "../../libs/authValidationYup";
 import { login } from "../../store/reducers/authSlice";
 import { PATH } from "../../router";
+import { signUpRequest } from "../../apis/authApi";
 import * as Styled from "./SignUpForm.style";
 
 type FormData = yup.InferType<typeof SignUpSchema>;
@@ -33,7 +33,7 @@ const SignUpForm = () => {
 
   const SignUpSubmitHandler = handleSubmit(async (data) => {
     try {
-      const response = await axios.post("http://localhost:3000/user/signUp", {
+      const response = await signUpRequest({
         email: data.email,
         password: data.password,
         nickname: data.nickname,
