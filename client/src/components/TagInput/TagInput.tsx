@@ -10,7 +10,8 @@ const TagInput: React.FC<ITagInput> = ({ tags, setTags }) => {
   const tagAddHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" || event.key === " ") {
       const enteredTag = event.currentTarget.value.trim();
-      if (!enteredTag) {
+      const isInclude = tags.includes(`#${event.currentTarget.value.trim()}`);
+      if (!enteredTag || isInclude || tags.length > 5) {
         event.currentTarget.value = "";
         return;
       }
@@ -26,7 +27,11 @@ const TagInput: React.FC<ITagInput> = ({ tags, setTags }) => {
           <li key={el}>{el}</li>
         ))}
       </Styled.TagGroup>
-      <input type="text" onKeyUp={tagAddHandler} />
+      <input
+        type="text"
+        onKeyUp={tagAddHandler}
+        placeholder="태그는 5개까지 입력 가능합니다"
+      />
     </Styled.Container>
   );
 };
