@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import * as Styled from "./TagInput.style";
 
-const TagInput = () => {
-  const [tags, setTags] = useState<string[]>([]);
+interface ITagInput {
+  tags: string[];
+  setTags: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
+const TagInput: React.FC<ITagInput> = ({ tags, setTags }) => {
   const tagAddHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" || event.key === " ") {
       const enteredTag = event.currentTarget.value.trim();
