@@ -15,7 +15,7 @@ export const createUser = async (req: Request, res: Response) => {
     });
   } catch (err) {
     res.status(400).send({
-      message: `회원가입에 실패했습니다 ${err}`,
+      message: "회원가입에 실패했습니다",
     });
   }
 };
@@ -26,7 +26,9 @@ export const loginUser = async (req: Request, res: Response) => {
     const isValid = await verifyPassword(req.body.password, user.password);
 
     if (!isValid) {
-      throw new Error("비밀번호가 일치하지 않습니다");
+      res.status(400).send({
+        message: "비밀번호가 일치하지 않습니다",
+      });
     }
 
     res.status(200).send({
@@ -35,7 +37,7 @@ export const loginUser = async (req: Request, res: Response) => {
     });
   } catch (err) {
     res.status(400).send({
-      message: `로그인에 실패했습니다 ${err}`,
+      message: "로그인에 실패했습니다",
     });
   }
 };
