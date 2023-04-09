@@ -7,7 +7,6 @@ import * as Styled from "./Header.style";
 const Header = () => {
   const location = useLocation().pathname;
 
-  console.log(location);
   return (
     <Styled.Container>
       <Styled.Inner>
