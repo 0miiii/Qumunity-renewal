@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "@mui/material";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
@@ -6,12 +6,22 @@ import TagInput from "../../components/TagInput/TagInput";
 import * as Styled from "./QuestionPage.style";
 
 const QuestionPage = () => {
+  const [tags, setTags] = useState<string[]>([]);
+  const titleInputRef = useRef<HTMLInputElement>(null);
+  const editorRef = useRef<Editor>(null);
+
+  const submitHandler = () => {
+    console.log(titleInputRef.current?.value);
+    console.log(tags);
+    console.log(editorRef.current?.getInstance().getHTML());
+  };
+
   return (
-    <Styled.Container>
+    <Styled.Container onSubmit={submitHandler}>
       <Styled.Form>
         <Styled.InputContainer>
           <label>제목을 입력해주세요</label>
-          <input type="text" />
+          <input type="text" ref={titleInputRef} />
         </Styled.InputContainer>
 
         <Styled.InputContainer>
@@ -28,15 +38,20 @@ const QuestionPage = () => {
               ["table", "link"],
               ["code", "codeblock"],
             ]}
+            ref={editorRef}
+            autofocus={false}
+            initialValue=" "
           />
         </Styled.InputContainer>
 
         <Styled.InputContainer>
           <label>태그를 입력해주세요</label>
-          <TagInput />
+          <TagInput tags={tags} setTags={setTags} />
         </Styled.InputContainer>
 
-        <Button variant="contained">글 작성하기</Button>
+        <Button variant="contained" onClick={submitHandler}>
+          글 작성하기
+        </Button>
       </Styled.Form>
     </Styled.Container>
   );
