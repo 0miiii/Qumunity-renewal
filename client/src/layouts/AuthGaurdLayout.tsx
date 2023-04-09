@@ -1,10 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { PATH } from "../router";
+import { getAccessTokenFromLocalStorage } from "../utils/tokenHandler";
+import { logout } from "../store/reducers/authSlice";
 
 interface Iprops {
   children: React.ReactNode;
 }
 
 const AuthGaurdLayout: React.FC<Iprops> = ({ children }) => {
+  const [loading, setIsLoading] = useState(true);
+  const routeTo = useNavigate();
+  const dispatch = useDispatch();
+
+  const validateToken = async () => {
+    const token = getAccessTokenFromLocalStorage();
+    try {
+      await axios.get("http://localhost:3000/user/auth", {
+        headers: {
+          Authorization: token,
+        },
+      });
+      setIsLoading(false);
+    } catch (err) {
+      alert("로그인이 필요합니다");
+      dispatch(logout());
+      routeTo(PATH.SIGN_IN);
+      return;
+    }
+  };
+
+  useEffect(() => {
+    validateToken();
+  }, [children]);
+
+  if (loading) {
+    return <div>loading</div>;
+  }
+
   return <>{children}</>;
 };
 
