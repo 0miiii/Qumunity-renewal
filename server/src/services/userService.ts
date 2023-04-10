@@ -1,6 +1,6 @@
 import UserModel, { IUser } from "../models/userModel";
 
-export const createUser = async (user: IUser) => {
+export const createUser = async (user: IUser): Promise<IUser> => {
   const newUser = await new UserModel(user).save();
 
   if (!newUser) {
@@ -10,7 +10,7 @@ export const createUser = async (user: IUser) => {
   return newUser;
 };
 
-export const findUser = async (email: string) => {
+export const findUser = async (email: string): Promise<IUser> => {
   const user = await UserModel.findOne({ email });
 
   if (!user) {
