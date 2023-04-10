@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import UserModel from "../models/userModel";
 import PostModel from "../models/postModel";
 import * as UserService from "../services/userService";
+import * as PostService from "../services/postService";
 
 interface ICreateRquest extends Request {
   decodedToken: { email: string };
@@ -15,16 +15,15 @@ export const createPost = async (
   res: Response
 ) => {
   try {
-    const postinfo = new PostModel({
-      title: req.body.title,
-      content: req.body.content,
-      tags: req.body.tags,
-    });
     const userinfo = await UserService.getUserAndIncreaseQuestion(
       req.body.decodedToken.email
     );
-    postinfo.author = userinfo._id;
-    await postinfo.save();
+    const postinfo = await PostService.createPost({
+      title: req.body.title,
+      content: req.body.content,
+      tags: req.body.tags,
+      author: userinfo._id,
+    });
     return res.status(200).json({
       success: true,
       message: "글 작성에 성공하였습니다",
