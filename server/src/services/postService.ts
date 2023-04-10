@@ -1,6 +1,13 @@
 import PostModel, { IPost } from "../models/postModel";
 
-export const createPost = async (post: IPost): Promise<IPost> => {
+interface IRequestPost {
+  title: string;
+  content: string;
+  tags: string[];
+  author: string;
+}
+
+export const createPost = async (post: IRequestPost): Promise<IPost> => {
   const newPost = await new PostModel(post).save();
 
   if (!newPost) {
