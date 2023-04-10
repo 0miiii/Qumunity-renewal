@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import UserModel from "../models/userModel";
 import PostModel from "../models/postModel";
+import * as UserService from "../services/userService";
 
 interface ICreateRquest extends Request {
   decodedToken: { email: string };
@@ -19,13 +20,9 @@ export const createPost = async (
       content: req.body.content,
       tags: req.body.tags,
     });
-    const userinfo = await UserModel.findOneAndUpdate(
-      {
-        email: req.body.decodedToken.email,
-      },
-      { $inc: { questions: 1 } }
+    const userinfo = await UserService.getUserAndIncreaseQuestion(
+      req.body.decodedToken.email
     );
-
     postinfo.author = userinfo._id;
     await postinfo.save();
     return res.status(200).json({
