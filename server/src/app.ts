@@ -4,6 +4,7 @@ import path from "path";
 import cors from "cors";
 import dotenv from "dotenv";
 import userRouter from "./routes/userRoute";
+import postRouter from "./routes/postRoute";
 import { dbConnect } from "./libs/mongoose";
 
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(express.static(path.join(__dirname, "./client/build")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/user", userRouter);
+app.use("/post", postRouter);
 
 app.listen(port, async () => {
   await dbConnect();
