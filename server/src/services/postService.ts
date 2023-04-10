@@ -16,3 +16,13 @@ export const createPost = async (post: IRequestPost): Promise<IPost> => {
 
   return newPost;
 };
+
+export const getAllPost = async (): Promise<IPost[]> => {
+  const posts = await PostModel.find();
+
+  if (!posts) {
+    throw new Error("모든 게시물을 찾는 것에 실패했습니다");
+  }
+
+  return posts;
+};
