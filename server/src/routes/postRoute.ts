@@ -4,6 +4,7 @@ import { validateToken } from "../middlewares/authMiddleware";
 
 const router = Router();
 
+router.get("/getposts", postController.getAllPost);
 router.post("/register", validateToken, postController.createPost);
 
 export default router;
