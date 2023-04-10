@@ -19,3 +19,18 @@ export const findUser = async (email: string) => {
 
   return user;
 };
+
+export const getUserAndIncreaseQuestion = async (
+  usermail: string
+): Promise<IUser> => {
+  const userinfo = await UserModel.findOneAndUpdate(
+    { email: usermail },
+    { $inc: { questions: 1 } }
+  );
+
+  if (!userinfo) {
+    throw new Error("존재하지 않는 유저입니다");
+  }
+
+  return userinfo;
+};
