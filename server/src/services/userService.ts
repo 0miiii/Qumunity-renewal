@@ -1,7 +1,7 @@
 import UserModel, { IUser } from "../models/userModel";
 
 export const createUser = async (user: IUser) => {
-  const newUser = new UserModel(user).save();
+  const newUser = await new UserModel(user).save();
 
   if (!newUser) {
     throw new Error("유저 생성에 실패했습니다");
@@ -11,7 +11,7 @@ export const createUser = async (user: IUser) => {
 };
 
 export const findUser = async (email: string) => {
-  const user = UserModel.findOne({ email });
+  const user = await UserModel.findOne({ email });
 
   if (!user) {
     throw new Error("존재하지 않는 유저입니다");
