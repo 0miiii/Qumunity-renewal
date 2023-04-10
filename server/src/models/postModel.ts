@@ -1,7 +1,7 @@
 import { Schema, model, Document } from "mongoose";
 import { IUser } from "./userModel";
 
-interface IPost extends Document {
+export interface IPost extends Document {
   title: string;
   content: string;
   tags: string[];
