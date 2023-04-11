@@ -18,7 +18,7 @@ export const createPost = async (post: IRequestPost): Promise<IPost> => {
 };
 
 export const getAllPost = async (): Promise<IPost[]> => {
-  const posts = await PostModel.find();
+  const posts = await PostModel.find().populate("author");
 
   if (!posts) {
     throw new Error("모든 게시물을 찾는 것에 실패했습니다");
