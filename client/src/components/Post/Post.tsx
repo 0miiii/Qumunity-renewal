@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { format } from "timeago.js";
 import * as Styled from "./Post.style";
 
@@ -38,7 +39,9 @@ const Post: React.FC<Props> = ({ post }) => {
       </Styled.State>
       <Styled.Content>
         <Styled.Top>
-          <h1>{post.title}</h1>
+          <h1>
+            <Link to={`/detail/${post._id}`}>{post.title}</Link>
+          </h1>
           <p>{post.content}</p>
         </Styled.Top>
         <Styled.Bot>
