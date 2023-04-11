@@ -1,41 +1,61 @@
-import React from 'react';
-// import { format } from 'timeago.js';
-import * as Styled from './Post.style';
+import React from "react";
+import { format } from "timeago.js";
+import * as Styled from "./Post.style";
 
-const postData = {
-  votes: 10,
-  answers: 5,
-  views: 20,
-  title: '제목',
-  summary: '내용 요약 미리보기',
-  tags: ['node', 'java'],
-};
+interface Props {
+  post: IPost;
+}
+interface IPost {
+  _id: string;
+  title: string;
+  content: string;
+  tags: string[];
+  answers: number;
+  views: number;
+  votes: number;
+  author: IUser;
+  createAt: string;
+  updateAt: string;
+}
 
-const Post = () => {
-  // const createdAt = format(postData.createdAt, 'en_US');
+interface IUser {
+  _id: string;
+  email: string;
+  nickname: string;
+  photoURL: string;
+  questions: number;
+}
+
+const Post: React.FC<Props> = ({ post }) => {
+  const createdAt = format(post.createAt, "en_US");
 
   return (
     <Styled.Container>
       <Styled.State>
-        <li>{postData.votes} votes</li>
-        <li>{postData.answers} answers</li>
-        <li>{postData.views} views</li>
+        <li>{post.votes} votes</li>
+        <li>{post.answers} answers</li>
+        <li>{post.views} views</li>
       </Styled.State>
       <Styled.Content>
         <Styled.Top>
-          <h1>{postData.title}</h1>
-          <p>{postData.summary}</p>
+          <h1>{post.title}</h1>
+          <p>{post.content}</p>
         </Styled.Top>
         <Styled.Bot>
           <Styled.Tags>
-            {postData.tags.map((el) => (
+            {post.tags.map((el) => (
               <li key={el}>{el}</li>
             ))}
           </Styled.Tags>
           <Styled.AuthorInfo>
-            <li>아이콘</li>
-            <li>아이디</li>
-            <li>날짜</li>
+            <li>
+              <img
+                src={post.author.photoURL}
+                style={{ width: "20px", height: "20px" }}
+              />
+            </li>
+            <li>{post.author.nickname}</li>
+            <li>{createdAt}</li>
           </Styled.AuthorInfo>
         </Styled.Bot>
       </Styled.Content>
