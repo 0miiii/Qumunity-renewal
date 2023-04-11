@@ -65,4 +65,10 @@ export const Tags = styled.ul`
 
 export const AuthorInfo = styled.ul`
   display: flex;
+
+  img {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+  }
 `;

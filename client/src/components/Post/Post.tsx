@@ -52,10 +52,7 @@ const Post: React.FC<Props> = ({ post }) => {
           </Styled.Tags>
           <Styled.AuthorInfo>
             <li>
-              <img
-                src={post.author.photoURL}
-                style={{ width: "20px", height: "20px" }}
-              />
+              <img src={post.author.photoURL} />
             </li>
             <li>{post.author.nickname}</li>
             <li>{createdAt}</li>
