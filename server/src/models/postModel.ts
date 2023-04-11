@@ -11,15 +11,18 @@ export interface IPost extends Document {
   author: IUser;
 }
 
-const postSchema = new Schema<IPost>({
-  title: { type: String, required: true },
-  content: { type: String, required: true },
-  tags: { type: [String], required: true },
-  answers: { type: Number, default: 0, required: true },
-  views: { type: Number, default: 0, required: true },
-  votes: { type: Number, default: 0, required: true },
-  author: { type: Schema.Types.ObjectId, ref: "User", required: true },
-});
+const postSchema = new Schema<IPost>(
+  {
+    title: { type: String, required: true },
+    content: { type: String, required: true },
+    tags: { type: [String], required: true },
+    answers: { type: Number, default: 0, required: true },
+    views: { type: Number, default: 0, required: true },
+    votes: { type: Number, default: 0, required: true },
+    author: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  },
+  { collection: "posts", timestamps: true }
+);
 
 const PostModel = model<IPost>("Post", postSchema);
 
