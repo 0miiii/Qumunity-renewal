@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.li`
   width: 840px;
@@ -36,6 +36,10 @@ export const Top = styled.div`
   h1 {
     font-size: 17px;
     margin-bottom: 5px;
+  }
+
+  h1:hover {
+    color: red;
   }
 
   p {
