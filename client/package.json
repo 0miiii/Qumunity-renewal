@@ -25,6 +25,7 @@
     "styled-components": "^5.3.9",
     "styled-reset": "^4.4.5",
     "sweetalert2": "^11.7.3",
+    "timeago.js": "^4.0.0-beta.3",
     "yup": "^1.0.2"
   },
   "devDependencies": {
