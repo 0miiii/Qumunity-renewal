@@ -1,10 +1,10 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import * as userController from "../controllers/userController";
 
 const router = Router();
 
-router.get("/auth", userController.userAuth);
-router.post("/signUp", userController.createUser);
-router.post("/signIn", userController.login);
+router.get("/auth", userController.isTokenValid);
+router.post("/signUp", userController.signUp);
+router.post("/signIn", userController.signIn);
 
 export default router;

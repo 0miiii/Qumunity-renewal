@@ -3,7 +3,7 @@ import * as userService from "../services/userService";
 import { verifyPassword } from "../libs/hash";
 import { createToken, verifyToken } from "../libs/jsonwebtoken";
 
-export const createUser = async (req: Request, res: Response) => {
+export const signUp = async (req: Request, res: Response) => {
   try {
     const user = await userService.createUser({
       ...req.body,
@@ -21,7 +21,7 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const signIn = async (req: Request, res: Response) => {
   try {
     const user = await userService.findUser(req.body.email);
     const isValid = await verifyPassword(req.body.password, user.password);
@@ -43,7 +43,7 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-export const userAuth = (req: Request, res: Response) => {
+export const isTokenValid = (req: Request, res: Response) => {
   const token = req.headers.authorization;
 
   if (!token) {
