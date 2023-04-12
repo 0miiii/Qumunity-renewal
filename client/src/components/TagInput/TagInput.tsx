@@ -12,7 +12,7 @@ const TagInput: React.FC<ITagInput> = ({ tags, setTags }) => {
     if (event.key === "Enter" || event.key === " ") {
       const enteredTag = event.currentTarget.value.trim();
       const isInclude = tags.includes(`#${event.currentTarget.value.trim()}`);
-      if (!enteredTag || isInclude || tags.length > 5) {
+      if (!enteredTag || isInclude || tags.length > 4) {
         event.currentTarget.value = "";
         return;
       }
