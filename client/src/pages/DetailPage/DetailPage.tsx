@@ -1,30 +1,77 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios, { AxiosError } from "axios";
 import { Editor, Viewer } from "@toast-ui/react-editor";
 import { Button } from "@mui/material";
+import instance from "../../apis/intance";
+import { IPost } from "../../types/post";
 import Tag from "../../components/Tag/Tag";
 import * as Styled from "./DetailPage.style";
 
+interface IResponse {
+  success: boolean;
+  message: string;
+  data: IPost;
+}
+
 const DetailPage = () => {
+  const postId = useParams().id;
+
+  const [post, setPost] = useState<IPost | null>(null);
+  const [error, setError] = useState<AxiosError | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const getPostRequest = async () => {
+    setLoading(true);
+
+    try {
+      const response = await instance.post<IResponse>("/post/getpost", {
+        postId,
+      });
+      setPost(response.data.data);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(err);
+      } else {
+        console.log(error);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getPostRequest();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
   return (
     <Styled.Container>
       <Styled.Detail>
         <Styled.DetailInfo>
           <div>
-            <span>글 작성자</span>
-            <span>작성한 날짜</span>
-            <span>조회수</span>
+            <span>{post?.author.nickname}</span>
+            <span>{post?.createdAt}</span>
+            <span>{post?.views}</span>
           </div>
           <div>
             <button>수정</button>
             <button>삭제</button>
           </div>
         </Styled.DetailInfo>
-        <h1>글 제목</h1>
-        <Viewer initialValue="글 내용" />
+        <h1>{post?.title}</h1>
+        <Viewer initialValue={post?.content} />
         <Styled.TagGroup>
-          <Tag name="#태그1" />
-          <Tag name="#태그2" />
-          <Tag name="#태그3" />
+          {post?.tags.map((tag) => (
+            <Tag key={tag} name={tag} />
+          ))}
         </Styled.TagGroup>
         <div>
           <span>좋아요 1</span>
