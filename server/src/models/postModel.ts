@@ -2,6 +2,7 @@ import { Schema, model, Document } from "mongoose";
 import { IUser } from "./userModel";
 
 export interface IPost extends Document {
+  _id: string;
   title: string;
   content: string;
   tags: string[];
@@ -9,6 +10,8 @@ export interface IPost extends Document {
   views: number;
   votes: number;
   author: IUser;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const postSchema = new Schema<IPost>(
