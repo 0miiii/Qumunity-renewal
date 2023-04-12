@@ -3,7 +3,7 @@ import * as UserService from "../services/userService";
 import * as PostService from "../services/postService";
 
 interface ICreateRquest extends Request {
-  decodedToken: { email: string };
+  decodedToken: { _id: string };
   title: string;
   content: string;
   tags: string[];
@@ -15,7 +15,7 @@ export const createPost = async (
 ) => {
   try {
     const userinfo = await UserService.getUserAndIncreaseQuestion(
-      req.body.decodedToken.email
+      req.body.decodedToken._id
     );
     const postinfo = await PostService.createPost({
       title: req.body.title,
@@ -46,11 +46,9 @@ export const getAllPost = async (_: Request, res: Response) => {
     });
   } catch (err) {
     console.log(err);
-    return res
-      .status(400)
-      .json({
-        success: false,
-        message: "모든 게시물을 불러오는데 실패하였습니다",
-      });
+    return res.status(400).json({
+      success: false,
+      message: "모든 게시물을 불러오는데 실패하였습니다",
+    });
   }
 };

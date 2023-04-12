@@ -21,10 +21,10 @@ export const findUser = async (email: string): Promise<IUser> => {
 };
 
 export const getUserAndIncreaseQuestion = async (
-  usermail: string
+  userId: string
 ): Promise<IUser> => {
   const userinfo = await UserModel.findOneAndUpdate(
-    { email: usermail },
+    { _id: userId },
     { $inc: { questions: 1 } }
   );
 

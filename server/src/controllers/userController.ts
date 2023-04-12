@@ -5,13 +5,14 @@ import { createToken, verifyToken } from "../libs/jsonwebtoken";
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    await userService.createUser({
+    const user = await userService.createUser({
       ...req.body,
       photoURL: `https://source.boringavatars.com/beam/130/${req.body.nickname}?square`,
     });
+
     res.status(200).send({
       message: "Qumunity에 오신 것을 환영합니다",
-      token: createToken({ email: req.body.email }),
+      token: createToken({ _id: user._id }),
     });
   } catch (err) {
     res.status(400).send({
@@ -33,7 +34,7 @@ export const login = async (req: Request, res: Response) => {
 
     res.status(200).send({
       message: "Qumunity에 오신 것을 환영합니다",
-      token: createToken({ email: req.body.email }),
+      token: createToken({ _id: user._id }),
     });
   } catch (err) {
     res.status(400).send({

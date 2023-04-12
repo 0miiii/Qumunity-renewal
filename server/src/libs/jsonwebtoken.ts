@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 interface Ipayload {
-  email: string;
+  _id: string;
 }
 
 export const createToken = (payload: Ipayload) => {
