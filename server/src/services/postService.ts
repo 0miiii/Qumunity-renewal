@@ -26,3 +26,11 @@ export const getAllPost = async (): Promise<IPost[]> => {
 
   return posts;
 };
+
+export const getPost = async (postId: string): Promise<IPost> => {
+  try {
+    return await PostModel.findById(postId);
+  } catch (err) {
+    throw new Error(`게시물을 찾는 중에 에러가 발생했습니다 ${err}`);
+  }
+};
