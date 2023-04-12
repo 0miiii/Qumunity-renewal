@@ -1,31 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { IPost } from "../../types/post";
 import Tag from "../Tag/Tag";
 import { transformCreatedAt } from "../../libs/timeago";
 import * as Styled from "./Post.style";
 
 interface Props {
   post: IPost;
-}
-interface IPost {
-  _id: string;
-  title: string;
-  content: string;
-  tags: string[];
-  answers: number;
-  views: number;
-  votes: number;
-  author: IUser;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface IUser {
-  _id: string;
-  email: string;
-  nickname: string;
-  photoURL: string;
-  questions: number;
 }
 
 const Post: React.FC<Props> = ({ post }) => {

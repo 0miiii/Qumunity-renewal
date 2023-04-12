@@ -1,34 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios, { AxiosError } from "axios";
 import { Link } from "react-router-dom";
+import { IPost } from "../../types/post";
 import Post from "../../components/Post/Post";
 import * as Styled from "./MainPage.style";
 import instance from "../../apis/intance";
 
-interface IRes {
+interface IResponse {
   success: boolean;
   message: string;
   data: IPost[];
-}
-interface IPost {
-  _id: string;
-  title: string;
-  content: string;
-  tags: string[];
-  answers: number;
-  views: number;
-  votes: number;
-  author: IUser;
-  createAt: string;
-  updateAt: string;
-}
-
-interface IUser {
-  _id: string;
-  email: string;
-  nickname: string;
-  photoURL: string;
-  questions: number;
 }
 
 const MainPage = () => {
@@ -40,7 +21,7 @@ const MainPage = () => {
     setLoading(true);
 
     try {
-      const response = await instance.get<IRes>("/post/getposts");
+      const response = await instance.get<IResponse>("/post/getposts");
       setPosts(response.data.data);
     } catch (err) {
       if (axios.isAxiosError(err)) {
