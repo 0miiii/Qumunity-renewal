@@ -15,8 +15,8 @@ interface IPost {
   views: number;
   votes: number;
   author: IUser;
-  createAt: string;
-  updateAt: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface IUser {
@@ -28,7 +28,11 @@ interface IUser {
 }
 
 const Post: React.FC<Props> = ({ post }) => {
-  const createdAt = format(post.createAt, "en_US");
+  const transformedDate = post.createdAt.substring(
+    0,
+    post.createdAt.lastIndexOf(".")
+  );
+  const createdAt = format(transformedDate, "en_US");
 
   return (
     <Styled.Container>
