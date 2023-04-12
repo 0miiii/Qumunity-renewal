@@ -29,7 +29,7 @@ export const findAllPost = async (): Promise<IPost[]> => {
 
 export const findPost = async (postId: string): Promise<IPost> => {
   try {
-    return await PostModel.findById(postId);
+    return await PostModel.findOne({ _id: postId }).populate("author");
   } catch (err) {
     throw new Error(`게시물을 찾는 중에 에러가 발생했습니다 ${err}`);
   }
