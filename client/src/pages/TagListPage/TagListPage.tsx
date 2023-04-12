@@ -1,4 +1,5 @@
 import React from "react";
+import Tag from "../../components/Tag/Tag";
 import * as Styled from "./TagListPage.style";
 
 const TagListPage = () => {
@@ -10,7 +11,7 @@ const TagListPage = () => {
       <Styled.TagList>
         {new Array(9).fill(0).map((_, idx) => (
           <li key={idx}>
-            <Styled.Tag>#javascript</Styled.Tag>
+            <Tag name="javascript" />
           </li>
         ))}
       </Styled.TagList>
