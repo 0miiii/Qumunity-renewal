@@ -1,19 +1,26 @@
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import TagInput from "../../components/TagInput/TagInput";
 import * as Styled from "./QuestionPage.style";
+import instance from "../../apis/intance";
 
 const QuestionPage = () => {
+  const routeTo = useNavigate();
   const [tags, setTags] = useState<string[]>([]);
   const titleInputRef = useRef<HTMLInputElement>(null);
   const editorRef = useRef<Editor>(null);
 
-  const submitHandler = () => {
-    console.log(titleInputRef.current?.value);
-    console.log(tags);
-    console.log(editorRef.current?.getInstance().getHTML());
+  const submitHandler = async () => {
+    await instance.post("/post/register", {
+      title: titleInputRef.current?.value,
+      content: editorRef.current?.getInstance().getHTML(),
+      tags,
+    });
+
+    routeTo("/");
   };
 
   return (
