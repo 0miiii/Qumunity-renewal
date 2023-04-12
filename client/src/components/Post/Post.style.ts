@@ -2,40 +2,40 @@ import styled from "styled-components";
 
 export const Container = styled.li`
   width: 840px;
+  height: 122px;
   display: flex;
+  gap: 16px;
   border: 1px solid red;
   border-radius: 5px;
   padding: 16px;
   font-size: 13px;
-
-  margin: 0 auto; // 임시
 `;
 
 export const State = styled.ul`
-  margin-right: 16px;
-
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   flex: 0 0 100px;
   gap: 10px;
-
-  li {
-    color: var(--content-color);
-  }
 `;
 
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   flex: 1 1 auto;
-  gap: 8px;
 `;
 
 export const Top = styled.div`
   h1 {
     font-size: 17px;
     margin-bottom: 5px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   h1:hover {
