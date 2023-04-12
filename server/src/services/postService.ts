@@ -17,7 +17,7 @@ export const createPost = async (post: IRequestPost): Promise<IPost> => {
   return newPost;
 };
 
-export const getAllPost = async (): Promise<IPost[]> => {
+export const findAllPost = async (): Promise<IPost[]> => {
   const posts = await PostModel.find().populate("author");
 
   if (!posts) {
@@ -27,7 +27,7 @@ export const getAllPost = async (): Promise<IPost[]> => {
   return posts;
 };
 
-export const getPost = async (postId: string): Promise<IPost> => {
+export const findPost = async (postId: string): Promise<IPost> => {
   try {
     return await PostModel.findById(postId);
   } catch (err) {

@@ -9,7 +9,7 @@ interface ICreateRquest extends Request {
   tags: string[];
 }
 
-export const createPost = async (
+export const signUp = async (
   req: Request<{}, {}, ICreateRquest>,
   res: Response
 ) => {
@@ -38,7 +38,7 @@ export const createPost = async (
 
 export const getAllPost = async (_: Request, res: Response) => {
   try {
-    const posts = await PostService.getAllPost();
+    const posts = await PostService.findAllPost();
     return res.status(200).json({
       success: true,
       message: "모든 게시물을 응답합니다",
