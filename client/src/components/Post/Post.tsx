@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { format } from "timeago.js";
+import Tag from "../Tag/Tag";
 import * as Styled from "./Post.style";
 
 interface Props {
@@ -49,11 +50,13 @@ const Post: React.FC<Props> = ({ post }) => {
           <p>{post.content}</p>
         </Styled.Top>
         <Styled.Bot>
-          <Styled.Tags>
+          <Styled.TagGroup>
             {post.tags.map((el) => (
-              <li key={el}>{el}</li>
+              <li key={el}>
+                <Tag name={el} />
+              </li>
             ))}
-          </Styled.Tags>
+          </Styled.TagGroup>
           <Styled.AuthorInfo>
             <li>
               <img src={post.author.photoURL} />

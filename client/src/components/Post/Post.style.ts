@@ -58,7 +58,7 @@ export const Bot = styled.div`
   justify-content: space-between;
 `;
 
-export const Tags = styled.ul`
+export const TagGroup = styled.ul`
   display: flex;
   gap: 4px;
 `;

@@ -19,7 +19,7 @@ export const TagGroup = styled.ul`
   gap: 3px;
   padding: 0 5px;
 
-  span {
+  > li {
     margin-left: 3px;
   }
 `;

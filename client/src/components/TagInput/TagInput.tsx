@@ -1,4 +1,5 @@
 import React from "react";
+import Tag from "../Tag/Tag";
 import * as Styled from "./TagInput.style";
 
 interface ITagInput {
@@ -24,7 +25,9 @@ const TagInput: React.FC<ITagInput> = ({ tags, setTags }) => {
     <Styled.Container>
       <Styled.TagGroup>
         {tags.map((el) => (
-          <li key={el}>{el}</li>
+          <li key={el}>
+            <Tag name={el} />
+          </li>
         ))}
       </Styled.TagGroup>
       <input
