@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { format } from "timeago.js";
 import Tag from "../Tag/Tag";
+import { transformCreatedAt } from "../../libs/timeago";
 import * as Styled from "./Post.style";
 
 interface Props {
@@ -29,11 +29,7 @@ interface IUser {
 }
 
 const Post: React.FC<Props> = ({ post }) => {
-  const transformedDate = post.createdAt.substring(
-    0,
-    post.createdAt.lastIndexOf(".")
-  );
-  const createdAt = format(transformedDate, "en_US");
+  const createdAt = transformCreatedAt(post.createdAt);
 
   return (
     <Styled.Container>
