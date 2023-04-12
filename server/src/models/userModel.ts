@@ -7,6 +7,8 @@ export interface IUser extends Document {
   nickname: string;
   photoURL: string;
   questions: number;
+  answers: number;
+  bookmarks: number;
 }
 
 const userSchema = new Schema<IUser>(
@@ -16,6 +18,8 @@ const userSchema = new Schema<IUser>(
     nickname: { type: String, required: true },
     photoURL: { type: String, required: true },
     questions: { type: Number, default: 0 },
+    answers: { type: Number, default: 0 },
+    bookmarks: { type: Number, default: 0 },
   },
   { collection: "users" }
 );
