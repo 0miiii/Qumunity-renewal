@@ -1,4 +1,5 @@
 import React from "react";
+import Profile from "../../components/Profile/Profile";
 import * as Styled from "./UserListPage.style";
 
 const UserListPage = () => {
@@ -14,14 +15,7 @@ const UserListPage = () => {
       <Styled.UserList>
         {new Array(9).fill(0).map((_, idx) => (
           <li key={idx}>
-            <Styled.Profile>
-              <img src="" alt="" />
-              <div>
-                <span>닉네임</span>
-                <span>Qestions 2</span>
-                <span>Answers 3</span>
-              </div>
-            </Styled.Profile>
+            <Profile />
           </li>
         ))}
       </Styled.UserList>
