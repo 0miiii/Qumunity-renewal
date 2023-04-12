@@ -1,6 +1,7 @@
 import React from "react";
 import { Editor, Viewer } from "@toast-ui/react-editor";
 import { Button } from "@mui/material";
+import Tag from "../../components/Tag/Tag";
 import * as Styled from "./DetailPage.style";
 
 const DetailPage = () => {
@@ -21,9 +22,9 @@ const DetailPage = () => {
         <h1>글 제목</h1>
         <Viewer initialValue="글 내용" />
         <Styled.TagGroup>
-          <li>태그1</li>
-          <li>태그2</li>
-          <li>태그3</li>
+          <Tag name="#태그1" />
+          <Tag name="#태그2" />
+          <Tag name="#태그3" />
         </Styled.TagGroup>
         <div>
           <span>좋아요 1</span>
