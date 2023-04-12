@@ -68,7 +68,7 @@ const routerData: IRouter[] = [
     path: PATH.DETAIL,
     label: "Detail",
     element: <DetailPage />,
-    withAuth: true,
+    withAuth: false,
     withNavi: false,
   },
   {
