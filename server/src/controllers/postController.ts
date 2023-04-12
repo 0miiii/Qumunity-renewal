@@ -13,7 +13,7 @@ interface IGetPost {
   postId: string;
 }
 
-export const signUp = async (
+export const writePost = async (
   req: Request<{}, {}, ISignUpRequest>,
   res: Response
 ) => {

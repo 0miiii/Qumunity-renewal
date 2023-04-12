@@ -6,6 +6,6 @@ const router = Router();
 
 router.get("/getposts", postController.getAllPost);
 router.post("/getpost", postController.getPost);
-router.post("/register", validateToken, postController.signUp);
+router.post("/register", validateToken, postController.writePost);
 
 export default router;
