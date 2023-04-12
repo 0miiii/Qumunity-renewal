@@ -27,6 +27,14 @@ const postSchema = new Schema<IPost>(
   { collection: "posts", timestamps: true }
 );
 
+postSchema.pre<IPost>(["find", "findOne"], async function (next) {
+  this.populate({
+    path: "author",
+    select: "-password",
+  });
+  next();
+});
+
 const PostModel = model<IPost>("Post", postSchema);
 
 export default PostModel;
