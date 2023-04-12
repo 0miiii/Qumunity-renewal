@@ -21,7 +21,7 @@ export const FilterGroup = styled.div`
   justify-content: space-between;
 `;
 
-export const Profile = styled.li`
+export const Profile = styled.div`
   border: 1px solid red;
   display: flex;
   gap: 10px;
