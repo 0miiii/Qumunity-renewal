@@ -20,7 +20,7 @@ export const findUser = async (email: string): Promise<IUser> => {
   return user;
 };
 
-export const getUserAndIncreaseQuestion = async (
+export const findUserAndIncreaseQuestion = async (
   userId: string
 ): Promise<IUser> => {
   const userinfo = await UserModel.findOneAndUpdate(
