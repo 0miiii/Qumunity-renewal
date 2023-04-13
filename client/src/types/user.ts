@@ -4,4 +4,5 @@ export interface IUser {
   nickname: string;
   photoURL: string;
   questions: number;
+  answers: number;
 }
