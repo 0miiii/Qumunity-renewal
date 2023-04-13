@@ -20,6 +20,14 @@ export const findUser = async (email: string): Promise<IUser> => {
   return user;
 };
 
+export const findAllUser = async () => {
+  const allUser = await UserModel.find({}).select("-password");
+  if (!allUser) {
+    throw new Error("유저 정보를 불러오는 중에 에러가 발생했습니다");
+  }
+  return allUser;
+};
+
 export const findUserAndIncreaseQuestion = async (
   userId: string
 ): Promise<IUser> => {
