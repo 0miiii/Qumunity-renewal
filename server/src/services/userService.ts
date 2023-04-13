@@ -10,8 +10,10 @@ export const createUser = async (user: IUser): Promise<IUser> => {
   return newUser;
 };
 
-export const findUser = async (email: string): Promise<IUser> => {
-  const user = await UserModel.findOne({ email });
+export const findUser = async (identifier: string): Promise<IUser> => {
+  const user = await UserModel.findOne({
+    $or: [{ email: identifier }, { _id: identifier }],
+  });
 
   if (!user) {
     throw new Error("존재하지 않는 유저입니다");
