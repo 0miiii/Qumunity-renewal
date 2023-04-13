@@ -57,3 +57,14 @@ export const isTokenValid = (req: Request, res: Response) => {
     return res.status(401).json({ message: "로그인이 필요합니다" });
   }
 };
+
+export const getAllUserInfo = async (req: Request, res: Response) => {
+  const allUser = await userService.findAllUser();
+  try {
+    return res
+      .status(200)
+      .json({ message: "모든 유저를 불러오는데 성공했습니다", data: allUser });
+  } catch (err) {
+    return res.status(200).json({ message: err });
+  }
+};
