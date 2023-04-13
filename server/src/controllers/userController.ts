@@ -3,6 +3,10 @@ import * as userService from "../services/userService";
 import { verifyPassword } from "../libs/hash";
 import { createToken, verifyToken } from "../libs/jsonwebtoken";
 
+interface ISignUpRequest extends Request {
+  decodedToken: { _id: string };
+}
+
 export const signUp = async (req: Request, res: Response) => {
   try {
     const user = await userService.createUser({
@@ -59,12 +63,26 @@ export const isTokenValid = (req: Request, res: Response) => {
 };
 
 export const getAllUserInfo = async (req: Request, res: Response) => {
-  const allUser = await userService.findAllUser();
   try {
+    const allUser = await userService.findAllUser();
     return res
       .status(200)
       .json({ message: "모든 유저를 불러오는데 성공했습니다", data: allUser });
   } catch (err) {
-    return res.status(200).json({ message: err });
+    return res.status(400).json({ message: err });
+  }
+};
+
+export const getMyInfo = async (
+  req: Request<{}, {}, ISignUpRequest>,
+  res: Response
+) => {
+  try {
+    const user = await userService.findUser(req.body.decodedToken._id);
+    return res
+      .status(200)
+      .json({ message: "유저정보 불러오는데 성공했습니다", data: user });
+  } catch (err) {
+    return res.status(400).json({ message: err });
   }
 };
