@@ -1,14 +1,19 @@
 import React from "react";
+import { IUser } from "../../types/user";
 import * as Styled from "./Profile.style";
 
-const Profile = () => {
+interface IProps {
+  user: IUser;
+}
+
+const Profile: React.FC<IProps> = ({ user }) => {
   return (
     <Styled.Container>
-      <img src="" alt="" />
+      <img src={user.photoURL} alt={user.nickname} />
       <div>
-        <span>닉네임</span>
-        <span>Qestions 2</span>
-        <span>Answers 3</span>
+        <span>{user.nickname}</span>
+        <span>Qestions: {user.questions}</span>
+        <span>Answers: {user.answers}</span>
       </div>
     </Styled.Container>
   );
