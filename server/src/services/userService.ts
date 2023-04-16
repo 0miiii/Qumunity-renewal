@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import UserModel, { IUser } from "../models/userModel";
 
 export const createUser = async (user: IUser): Promise<IUser> => {
@@ -11,8 +12,9 @@ export const createUser = async (user: IUser): Promise<IUser> => {
 };
 
 export const findUser = async (identifier: string): Promise<IUser> => {
+  const ValidId = mongoose.Types.ObjectId.isValid(identifier);
   const user = await UserModel.findOne({
-    $or: [{ email: identifier }, { _id: identifier }],
+    $or: [{ email: identifier }, { _id: ValidId ? identifier : null }],
   });
 
   if (!user) {
