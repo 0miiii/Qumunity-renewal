@@ -21,7 +21,8 @@ export const createPost = async (
   res: Response
 ) => {
   try {
-    const userinfo = await UserService.findUserAndIncreaseQuestionNum(
+    const userinfo = await UserService.findUserAndIncreaseNum(
+      "questions",
       req.body.decodedToken._id
     );
     const postinfo = await PostService.createPost({
