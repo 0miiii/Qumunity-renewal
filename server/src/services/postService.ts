@@ -1,59 +1,56 @@
 import PostModel, { IPost } from "../models/postModel";
 
-interface IRequestPost {
+interface IReqPost {
   title: string;
   content: string;
   tags: string[];
+}
+
+interface ISavePost extends IReqPost {
   author: string;
 }
-interface IUpdateRequestPost {
-  title: string;
-  content: string;
-  tags: string[];
-}
 
-export const createPost = async (post: IRequestPost): Promise<IPost> => {
-  const newPost = await new PostModel(post).save();
-
-  if (!newPost) {
-    throw new Error("게시물 생성에 실패하였습니다");
+export const createPost = async (post: ISavePost): Promise<IPost> => {
+  try {
+    return await new PostModel(post).save();
+  } catch (err) {
+    throw new Error(`게시물 생성 에러 ${err}`);
   }
-
-  return newPost;
 };
 
 export const findAllPost = async (): Promise<IPost[]> => {
-  const posts = await PostModel.find().populate("author");
-
-  if (!posts) {
-    throw new Error("모든 게시물을 찾는 것에 실패했습니다");
+  try {
+    return await PostModel.find().populate("author");
+  } catch (err) {
+    throw new Error(`모든 게시물 찾기 에러 ${err}`);
   }
-
-  return posts;
 };
 
 export const findPost = async (postId: string): Promise<IPost> => {
   try {
     return await PostModel.findOne({ _id: postId }).populate("author");
   } catch (err) {
-    throw new Error(`게시물을 찾는 중에 에러가 발생했습니다 ${err}`);
+    throw new Error(`게시물 찾기 에러 ${err}`);
   }
 };
 
-export const updatePost = async (postId: string, post: IUpdateRequestPost) => {
+export const updatePost = async (
+  postId: string,
+  post: IReqPost
+): Promise<IPost> => {
   try {
     return await PostModel.findByIdAndUpdate(postId, {
       $set: post,
     });
   } catch (err) {
-    throw new Error(`게시물 수정 중 에러 ${err}`);
+    throw new Error(`게시물 수정 에러 ${err}`);
   }
 };
 
-export const deletePost = async (postId: string) => {
+export const deletePost = async (postId: string): Promise<IPost> => {
   try {
     return await PostModel.findByIdAndDelete(postId);
   } catch (err) {
-    throw new Error(`게시물 삭제 중 에러 ${err}`);
+    throw new Error(`게시물 삭제 에러 ${err}`);
   }
 };
