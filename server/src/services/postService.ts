@@ -34,6 +34,16 @@ export const findPost = async (postId: string): Promise<IPost> => {
   }
 };
 
+export const findPostAndIncreaseNum = async (
+  postId: string
+): Promise<IPost> => {
+  try {
+    return await PostModel.findByIdAndUpdate(postId, { $inc: { answers: 1 } });
+  } catch (err) {
+    throw new Error(`유저 찾기 실패 ${err}`);
+  }
+};
+
 export const updatePost = async (
   postId: string,
   post: IReqPost
