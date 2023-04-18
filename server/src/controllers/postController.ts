@@ -48,11 +48,11 @@ export const findAllPost = async (_: Request, res: Response) => {
 };
 
 export const findPost = async (
-  req: Request<{}, {}, { postId: string }>,
+  req: Request<{ postId: string }>,
   res: Response
 ) => {
   try {
-    const post = await PostService.findPost(req.body.postId);
+    const post = await PostService.findPost(req.params.postId);
     return res.status(200).json(post);
   } catch (err) {
     console.error(err);
