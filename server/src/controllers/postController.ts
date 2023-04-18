@@ -2,22 +2,22 @@ import { Request, Response } from "express";
 import * as UserService from "../services/userService";
 import * as PostService from "../services/postService";
 
-interface ISignUpRequest extends Request {
-  decodedToken: { _id: string };
-  title: string;
-  content: string;
-  tags: string[];
-}
-interface IUpdateRequest extends Request {
-  decodedToken: { _id: string };
-  postId: string;
+interface IReqPost extends Request {
   title: string;
   content: string;
   tags: string[];
 }
 
-export const createPostCtr = async (
-  req: Request<{}, {}, ISignUpRequest>,
+interface ICreateReq extends IReqPost {
+  decodedToken: { _id: string };
+}
+
+interface IUpdateReq extends ICreateReq {
+  postId: string;
+}
+
+export const createPost = async (
+  req: Request<{}, {}, ICreateReq>,
   res: Response
 ) => {
   try {
@@ -30,58 +30,38 @@ export const createPostCtr = async (
       tags: req.body.tags,
       author: userinfo._id,
     });
-    return res.status(200).json({
-      success: true,
-      message: "글 작성에 성공하였습니다",
-      data: postinfo,
-    });
+    return res.status(200).json(postinfo);
   } catch (err) {
-    console.log(err);
-    return res
-      .status(400)
-      .json({ success: false, message: "글 작성에 실패하였습니다" });
+    console.error(err);
+    return res.status(400).json("글 작성에 실패하였습니다");
   }
 };
 
-export const findAllPostCtr = async (_: Request, res: Response) => {
+export const findAllPost = async (_: Request, res: Response) => {
   try {
     const posts = await PostService.findAllPost();
-    return res.status(200).json({
-      success: true,
-      message: "모든 게시물을 응답합니다",
-      data: posts,
-    });
+    return res.status(200).json(posts);
   } catch (err) {
-    console.log(err);
-    return res.status(400).json({
-      success: false,
-      message: "모든 게시물을 불러오는데 실패하였습니다",
-    });
+    console.error(err);
+    return res.status(400).json("모든 게시물을 불러오는데 실패하였습니다");
   }
 };
 
-export const findPostCtr = async (
+export const findPost = async (
   req: Request<{}, {}, { postId: string }>,
   res: Response
 ) => {
   try {
     const post = await PostService.findPost(req.body.postId);
-    return res.status(200).json({
-      success: true,
-      message: "게시물을 응답합니다",
-      data: post,
-    });
+    return res.status(200).json(post);
   } catch (err) {
-    console.log(err);
-    return res.status(400).json({
-      success: false,
-      message: "모든 게시물을 불러오는데 실패하였습니다",
-    });
+    console.error(err);
+    return res.status(400).json("게시물을 불러오는데 실패하였습니다");
   }
 };
 
-export const updatePostCtr = async (
-  req: Request<{}, {}, IUpdateRequest>,
+export const updatePost = async (
+  req: Request<{}, {}, IUpdateReq>,
   res: Response
 ) => {
   try {
@@ -99,7 +79,7 @@ export const updatePostCtr = async (
   }
 };
 
-export const deletePostCtr = async (
+export const deletePost = async (
   req: Request<{}, {}, { postId: string }>,
   res: Response
 ) => {
