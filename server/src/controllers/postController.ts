@@ -8,12 +8,15 @@ interface ISignUpRequest extends Request {
   content: string;
   tags: string[];
 }
-
-interface IGetPost {
+interface IUpdateRequest extends Request {
+  decodedToken: { _id: string };
   postId: string;
+  title: string;
+  content: string;
+  tags: string[];
 }
 
-export const writePost = async (
+export const createPostCtr = async (
   req: Request<{}, {}, ISignUpRequest>,
   res: Response
 ) => {
@@ -40,7 +43,7 @@ export const writePost = async (
   }
 };
 
-export const getAllPost = async (_: Request, res: Response) => {
+export const findAllPostCtr = async (_: Request, res: Response) => {
   try {
     const posts = await PostService.findAllPost();
     return res.status(200).json({
@@ -57,8 +60,8 @@ export const getAllPost = async (_: Request, res: Response) => {
   }
 };
 
-export const getPost = async (
-  req: Request<{}, {}, IGetPost>,
+export const findPostCtr = async (
+  req: Request<{}, {}, { postId: string }>,
   res: Response
 ) => {
   try {
@@ -74,5 +77,37 @@ export const getPost = async (
       success: false,
       message: "모든 게시물을 불러오는데 실패하였습니다",
     });
+  }
+};
+
+export const updatePostCtr = async (
+  req: Request<{}, {}, IUpdateRequest>,
+  res: Response
+) => {
+  try {
+    const postId = req.body.postId;
+    const requestPost = {
+      title: req.body.title,
+      content: req.body.content,
+      tags: req.body.tags,
+    };
+    const updatedPost = await PostService.updatePost(postId, requestPost);
+    return res.status(200).json(updatedPost);
+  } catch (err) {
+    console.error(err);
+    return res.status(400).json("게시물을 수정 중에 오류가 발생했습니다");
+  }
+};
+
+export const deletePostCtr = async (
+  req: Request<{}, {}, { postId: string }>,
+  res: Response
+) => {
+  try {
+    const deletePost = await PostService.deletePost(req.body.postId);
+    return res.status(200).json(deletePost);
+  } catch (err) {
+    console.error(err);
+    return res.status(400).json("게시물을 삭제 중에 오류가 발생했습니다");
   }
 };
