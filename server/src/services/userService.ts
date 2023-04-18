@@ -2,47 +2,41 @@ import mongoose from "mongoose";
 import UserModel, { IUser } from "../models/userModel";
 
 export const createUser = async (user: IUser): Promise<IUser> => {
-  const newUser = await new UserModel(user).save();
-
-  if (!newUser) {
-    throw new Error("유저 생성에 실패했습니다");
+  try {
+    return await new UserModel(user).save();
+  } catch (err) {
+    throw new Error(`유저 생성 실패 ${err}`);
   }
-
-  return newUser;
 };
 
 export const findUser = async (identifier: string): Promise<IUser> => {
-  const ValidId = mongoose.Types.ObjectId.isValid(identifier);
-  const user = await UserModel.findOne({
-    $or: [{ email: identifier }, { _id: ValidId ? identifier : null }],
-  });
-
-  if (!user) {
-    throw new Error("존재하지 않는 유저입니다");
+  try {
+    const ValidId = mongoose.Types.ObjectId.isValid(identifier);
+    return await UserModel.findOne({
+      $or: [{ email: identifier }, { _id: ValidId ? identifier : null }],
+    });
+  } catch (err) {
+    throw new Error(`유저 찾기 실패 ${err}`);
   }
-
-  return user;
 };
 
-export const findAllUser = async () => {
-  const allUser = await UserModel.find({}).select("-password");
-  if (!allUser) {
-    throw new Error("유저 정보를 불러오는 중에 에러가 발생했습니다");
+export const findAllUser = async (): Promise<IUser[]> => {
+  try {
+    return await UserModel.find().select("-password");
+  } catch (err) {
+    throw new Error(`모든 유저 찾기 실패 ${err}`);
   }
-  return allUser;
 };
 
-export const findUserAndIncreaseQuestion = async (
+export const findUserAndIncreaseQuestionNum = async (
   userId: string
 ): Promise<IUser> => {
-  const userinfo = await UserModel.findOneAndUpdate(
-    { _id: userId },
-    { $inc: { questions: 1 } }
-  );
-
-  if (!userinfo) {
-    throw new Error("존재하지 않는 유저입니다");
+  try {
+    return await UserModel.findOneAndUpdate(
+      { _id: userId },
+      { $inc: { questions: 1 } }
+    );
+  } catch (err) {
+    throw new Error(`유저 찾기 실패 ${err}`);
   }
-
-  return userinfo;
 };
