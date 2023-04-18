@@ -5,6 +5,7 @@ import * as userController from "../controllers/userController";
 const router = Router();
 
 router.get("/", userController.findAllUser);
+router.get("/:userId", userController.findUser);
 router.get("/myinfo", validateToken, userController.findMyInfo);
 router.get("/auth", userController.checkTokenValidity);
 router.post("/signUp", userController.signUp);

@@ -60,6 +60,19 @@ export const findAllUser = async (_: Request, res: Response) => {
   }
 };
 
+export const findUser = async (
+  req: Request<{ userId: string }>,
+  res: Response
+) => {
+  try {
+    const users = await userService.findUser(req.params.userId);
+    return res.status(200).json(users);
+  } catch (err) {
+    console.error(err);
+    return res.status(400).json("모든 유저를 불러오는데 실패하였습니다");
+  }
+};
+
 export const findMyInfo = async (
   req: Request<{}, {}, ISignUpRequest>,
   res: Response
