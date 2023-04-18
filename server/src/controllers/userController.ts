@@ -14,14 +14,9 @@ export const signUp = async (req: Request, res: Response) => {
       photoURL: `https://source.boringavatars.com/beam/130/${req.body.nickname}?square`,
     });
 
-    return res.status(200).send({
-      message: "Qumunity에 오신 것을 환영합니다",
-      token: createToken({ _id: user._id }),
-    });
+    return res.status(200).json({ token: createToken({ _id: user._id }) });
   } catch (err) {
-    return res.status(400).send({
-      message: "회원가입에 실패했습니다",
-    });
+    return res.status(400).json("회원가입에 실패했습니다");
   }
 };
 
@@ -31,58 +26,49 @@ export const signIn = async (req: Request, res: Response) => {
     const isValid = await verifyPassword(req.body.password, user.password);
 
     if (!isValid) {
-      return res.status(400).send({
-        message: "비밀번호가 일치하지 않습니다",
-      });
+      return res.status(400).json("비밀번호가 일치하지 않습니다");
     }
 
-    return res.status(200).send({
-      message: "Qumunity에 오신 것을 환영합니다",
-      token: createToken({ _id: user._id }),
-    });
+    return res.status(200).json({ token: createToken({ _id: user._id }) });
   } catch (err) {
-    return res.status(400).send({
-      message: `로그인에 실패했습니다 ${err}`,
-    });
+    return res.status(400).json("로그인에 실패했습니다");
   }
 };
 
-export const isTokenValid = (req: Request, res: Response) => {
+export const checkTokenValidity = (req: Request, res: Response) => {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({ message: "로그인이 필요합니다" });
+    return res.status(401).json("로그인이 필요합니다");
   }
 
   try {
     verifyToken(token);
-    return res.status(200).json({ message: "인증되었습니다" });
-  } catch (error) {
-    return res.status(401).json({ message: "로그인이 필요합니다" });
-  }
-};
-
-export const getAllUserInfo = async (req: Request, res: Response) => {
-  try {
-    const allUser = await userService.findAllUser();
-    return res
-      .status(200)
-      .json({ message: "모든 유저를 불러오는데 성공했습니다", data: allUser });
+    return res.status(200).json("인증되었습니다");
   } catch (err) {
-    return res.status(400).json({ message: err });
+    return res.status(401).json("토큰이 유효하지 않습니다");
   }
 };
 
-export const getMyInfo = async (
+export const findAllUser = async (_: Request, res: Response) => {
+  try {
+    const users = await userService.findAllUser();
+    return res.status(200).json(users);
+  } catch (err) {
+    console.error(err);
+    return res.status(400).json("모든 유저를 불러오는데 실패하였습니다");
+  }
+};
+
+export const findMyInfo = async (
   req: Request<{}, {}, ISignUpRequest>,
   res: Response
 ) => {
   try {
-    const user = await userService.findUser(req.body.decodedToken._id);
-    return res
-      .status(200)
-      .json({ message: "유저정보 불러오는데 성공했습니다", data: user });
+    const myinfo = await userService.findUser(req.body.decodedToken._id);
+    return res.status(200).json(myinfo);
   } catch (err) {
-    return res.status(400).json({ message: err });
+    console.error(err);
+    return res.status(400).json("나의 정보 찾기에 실패하였습니다");
   }
 };
