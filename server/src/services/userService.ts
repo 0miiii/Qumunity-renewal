@@ -28,14 +28,17 @@ export const findAllUser = async (): Promise<IUser[]> => {
   }
 };
 
-export const findUserAndIncreaseQuestionNum = async (
+export const findUserAndIncreaseNum = async (
+  increaseType: "questions" | "answers",
   userId: string
 ): Promise<IUser> => {
+  const increase =
+    increaseType === "questions"
+      ? { $inc: { questions: 1 } }
+      : { $inc: { answers: 1 } };
+
   try {
-    return await UserModel.findOneAndUpdate(
-      { _id: userId },
-      { $inc: { questions: 1 } }
-    );
+    return await UserModel.findByIdAndUpdate(userId, increase);
   } catch (err) {
     throw new Error(`유저 찾기 실패 ${err}`);
   }
