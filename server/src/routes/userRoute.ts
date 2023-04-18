@@ -4,9 +4,9 @@ import * as userController from "../controllers/userController";
 
 const router = Router();
 
-router.get("/auth", userController.isTokenValid);
-router.get("/getUsers", userController.getAllUserInfo);
-router.get("/getMyInfo", validateToken, userController.getMyInfo);
+router.get("/", userController.findAllUser);
+router.get("/myinfo", validateToken, userController.findMyInfo);
+router.get("/auth", userController.checkTokenValidity);
 router.post("/signUp", userController.signUp);
 router.post("/signIn", userController.signIn);
 
