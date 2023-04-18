@@ -9,14 +9,15 @@ export const validateToken = (
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({ message: "로그인이 필요합니다" });
+    return res.status(401).json("로그인이 필요합니다");
   }
 
   try {
     const decodedToken = verifyToken(token);
     req.body.decodedToken = decodedToken;
     next();
-  } catch (error) {
-    return res.status(401).json({ message: "로그인이 필요합니다" });
+  } catch (err) {
+    console.error(err);
+    return res.status(401).json({ message: "인증 실패" });
   }
 };
