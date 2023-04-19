@@ -19,7 +19,9 @@ export const createAnswer = async (answer: ISaveAnswer): Promise<IAnswer> => {
 
 export const findAnswer = async (id: string): Promise<IAnswer[]> => {
   try {
-    return await AnswerModel.find({ $or: [{ author: id }, { post: id }] });
+    return await AnswerModel.find({
+      $or: [{ author: id }, { post: id }],
+    }).populate("author");
   } catch (err) {
     throw new Error(`답변 찾기 에러 ${err}`);
   }
