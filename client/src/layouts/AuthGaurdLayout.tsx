@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { PATH } from "../router";
-import { loginCheck } from "../apis/authApi";
+import { loginCheck } from "../apis/auth";
 import { logout } from "../store/reducers/authSlice";
 
 interface Iprops {

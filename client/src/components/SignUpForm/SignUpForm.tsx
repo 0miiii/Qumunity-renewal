@@ -8,7 +8,7 @@ import { TextField, Button } from "@mui/material";
 import { SignUpSchema } from "../../libs/authValidationYup";
 import { login } from "../../store/reducers/authSlice";
 import { PATH } from "../../router";
-import { signUpRequest } from "../../apis/authApi";
+import { signUpRequest } from "../../apis/auth";
 import * as Styled from "./SignUpForm.style";
 
 type FormData = yup.InferType<typeof SignUpSchema>;

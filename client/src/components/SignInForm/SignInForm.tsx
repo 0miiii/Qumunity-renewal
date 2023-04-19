@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { TextField, Button } from "@mui/material";
 import { login } from "../../store/reducers/authSlice";
 import { PATH } from "../../router";
-import { signInRequest } from "../../apis/authApi";
+import { signInRequest } from "../../apis/auth";
 import * as Styled from "./SignInForm.style";
 
 const SignInForm = () => {
