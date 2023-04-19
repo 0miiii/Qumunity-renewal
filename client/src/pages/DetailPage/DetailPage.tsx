@@ -5,9 +5,11 @@ import { Editor, Viewer } from "@toast-ui/react-editor";
 import { Button } from "@mui/material";
 import Tag from "../../components/Tag/Tag";
 import { getPost } from "../../apis/post";
+import useScrollTop from "../../hooks/useScroll";
 import * as Styled from "./DetailPage.style";
 
 const DetailPage = () => {
+  useScrollTop();
   const postId = useParams().id;
 
   const {
