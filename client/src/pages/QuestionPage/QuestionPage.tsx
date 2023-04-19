@@ -19,8 +19,8 @@ const QuestionPage = () => {
   const [tags, setTags] = useState<string[]>([]);
   const titleInputRef = useRef<HTMLInputElement>(null);
   const editorRef = useRef<Editor>(null);
-  const { mutate, isLoading, isSuccess } = useMutation((post: IEnteredPost) =>
-    createPost(post)
+  const { mutate, isLoading, isSuccess, isError } = useMutation(
+    (post: IEnteredPost) => createPost(post)
   );
 
   const submitHandler = async () => {
@@ -37,6 +37,10 @@ const QuestionPage = () => {
 
   if (isSuccess) {
     return routeTo("/");
+  }
+
+  if (isError) {
+    return <div>에러발생</div>;
   }
 
   return (
