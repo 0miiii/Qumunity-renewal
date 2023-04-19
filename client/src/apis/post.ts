@@ -6,5 +6,5 @@ export const getPosts = () => {
 };
 
 export const getPost = (postId: string) => {
-  return instance.get<IPost>(`/post/:${postId}`).then((res) => res.data);
+  return instance.get<IPost>(`/post/${postId}`).then((res) => res.data);
 };
