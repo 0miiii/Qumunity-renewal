@@ -1,7 +1,6 @@
 import instance from "./intance";
 
 interface IAuthResponse {
-  message: string;
   token: string;
 }
 
