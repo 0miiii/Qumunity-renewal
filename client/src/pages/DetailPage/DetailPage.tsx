@@ -1,55 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
-import axios, { AxiosError } from "axios";
+import { useQuery } from "react-query";
 import { Editor, Viewer } from "@toast-ui/react-editor";
 import { Button } from "@mui/material";
-import instance from "../../apis/intance";
-import { IPost } from "../../types/post";
 import Tag from "../../components/Tag/Tag";
+import { getPost } from "../../apis/post";
 import * as Styled from "./DetailPage.style";
-
-interface IResponse {
-  success: boolean;
-  message: string;
-  data: IPost;
-}
 
 const DetailPage = () => {
   const postId = useParams().id;
 
-  const [post, setPost] = useState<IPost | null>(null);
-  const [error, setError] = useState<AxiosError | null>(null);
-  const [loading, setLoading] = useState(false);
+  const {
+    data: post,
+    isError,
+    isLoading,
+  } = useQuery(["post", postId], () => getPost(postId as string));
 
-  const getPostRequest = async () => {
-    setLoading(true);
-
-    try {
-      const response = await instance.post<IResponse>("/post/getpost", {
-        postId,
-      });
-      setPost(response.data.data);
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        setError(err);
-      } else {
-        console.log(error);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getPostRequest();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>{error.message}</div>;
+  if (isError) {
+    return <h3>에러발생</h3>;
   }
 
   return (
