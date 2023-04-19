@@ -3,6 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import MyQuestions from "./MyQuestions/MyQuestions";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -59,7 +60,7 @@ const MyPageTabs = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Qestions
+        <MyQuestions />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Answers
