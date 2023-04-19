@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import * as UserService from "../services/userService";
 import * as PostService from "../services/postService";
+import * as TagService from "../services/tagService";
 
 interface IReqPost extends Request {
   title: string;
@@ -31,6 +32,11 @@ export const createPost = async (
       tags: req.body.tags,
       author: userinfo._id,
     });
+
+    for (let tag of req.body.tags) {
+      await TagService.createTag(tag);
+    }
+
     return res.status(200).json(postinfo);
   } catch (err) {
     console.error(err);
