@@ -23,7 +23,7 @@ const MyPage = () => {
   return (
     <Styled.Container>
       <Profile user={user} />
-      <MyPageTabs />
+      <MyPageTabs user={user} />
     </Styled.Container>
   );
 };

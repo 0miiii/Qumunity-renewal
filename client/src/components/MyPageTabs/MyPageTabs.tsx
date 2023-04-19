@@ -4,14 +4,18 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import MyQuestions from "./MyQuestions/MyQuestions";
+import { IUser } from "../../types/user";
 
+interface IProps {
+  user: IUser;
+}
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
 }
 
-const MyPageTabs = () => {
+const MyPageTabs: React.FC<IProps> = ({ user }) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -60,7 +64,7 @@ const MyPageTabs = () => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <MyQuestions />
+        <MyQuestions count={user.questions} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Answers
