@@ -23,7 +23,7 @@ export const PATH = {
   MAIN: "/",
   SIGN_IN: "/signIn",
   SIGN_UP: "/signUp",
-  MYPAGE: "/mypage/:id",
+  MYPAGE: "/mypage",
   DETAIL: "/detail/:id",
   TAG_LIST: "/taglist",
   USER_LIST: "/userlist",
