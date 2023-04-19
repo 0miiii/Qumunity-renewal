@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import Post from "../../components/Post/Post";
@@ -7,6 +7,18 @@ import { getPosts } from "../../apis/post";
 
 const MainPage = () => {
   const { data: posts, isError, isLoading } = useQuery("posts", getPosts);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, offsetHeight, clientHeight } =
+        document.documentElement;
+      if (clientHeight + scrollTop >= offsetHeight) {
+        console.log("바닥");
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   if (isLoading) {
     return <div>로딩</div>;
