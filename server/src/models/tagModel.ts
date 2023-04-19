@@ -15,6 +15,6 @@ const tagSchema = new Schema<ITag>(
   { collection: "tags" }
 );
 
-const TagModel = model<ITag>("Answer", tagSchema);
+const TagModel = model<ITag>("Tag", tagSchema);
 
 export default TagModel;
