@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useQuery } from "react-query";
+import React, { useState, useEffect } from "react";
+import { useQuery, useQueryClient } from "react-query";
 import { getMyPost } from "../../../apis/post";
 import Pagination from "@mui/material/Pagination";
 import ContentBox from "../ContentBox/ContentBox";
@@ -10,17 +10,30 @@ interface IProps {
 }
 
 const MyQuestions: React.FC<IProps> = ({ count }) => {
+  const queryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 3;
+  const maxPage = Math.ceil(count / limit);
   const {
     data: mypost,
     isLoading,
     isError,
-  } = useQuery(["myPosts", currentPage], () => getMyPost(currentPage, limit));
+  } = useQuery(["myPosts", currentPage], () => getMyPost(currentPage, limit), {
+    keepPreviousData: true,
+  });
 
   const pageHandler = (_: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
+
+  useEffect(() => {
+    if (maxPage > currentPage) {
+      const nextPage = currentPage + 1;
+      queryClient.prefetchQuery(["myPosts", nextPage], () =>
+        getMyPost(nextPage, limit)
+      );
+    }
+  }, [currentPage]);
 
   if (isLoading) {
     return <div>로딩</div>;
@@ -36,7 +49,7 @@ const MyQuestions: React.FC<IProps> = ({ count }) => {
         <ContentBox key={post._id} post={post} />
       ))}
       <Pagination
-        count={Math.ceil(count / limit)}
+        count={maxPage}
         page={currentPage}
         onChange={pageHandler}
         variant="outlined"
