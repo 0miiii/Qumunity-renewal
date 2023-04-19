@@ -1,22 +1,28 @@
 import React from "react";
+import { IPost } from "../../../types/post";
+import Tag from "../../Tag/Tag";
 import * as Styled from "./ContentBox.style";
 
-const ContentBox = () => {
+interface Props {
+  post: IPost;
+}
+
+const ContentBox: React.FC<Props> = ({ post }) => {
   return (
     <Styled.Container>
       <Styled.State>
-        <span>0 views</span>
-        <span>0 votes</span>
-        <span>0 answers</span>
+        <span>{post.views} views</span>
+        <span>{post.votes} votes</span>
+        <span>{post.answers} answers</span>
       </Styled.State>
-      <p>질문 제목</p>
+      <div>{post.title}</div>
       <Styled.Bottom>
         <div>
-          <span>태그</span>
-          <span>태그</span>
-          <span>태그</span>
+          {post.tags.map((tag) => (
+            <Tag key={tag} name={tag} />
+          ))}
         </div>
-        <span>날짜</span>
+        <span>{post.createdAt}</span>
       </Styled.Bottom>
     </Styled.Container>
   );
