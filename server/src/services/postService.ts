@@ -18,8 +18,11 @@ export const createPost = async (post: ISavePost): Promise<IPost> => {
   }
 };
 
-export const findAllPost = async (): Promise<IPost[]> => {
+export const findAllPost = async (userId?: string): Promise<IPost[]> => {
   try {
+    if (userId) {
+      return await PostModel.find({ author: userId }).populate("author");
+    }
     return await PostModel.find().populate("author");
   } catch (err) {
     throw new Error(`모든 게시물 찾기 에러 ${err}`);
