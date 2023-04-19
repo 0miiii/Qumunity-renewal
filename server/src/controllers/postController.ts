@@ -54,6 +54,30 @@ export const findAllPost = async (_: Request, res: Response) => {
   }
 };
 
+export const findMyPost = async (
+  req: Request<
+    {},
+    {},
+    { decodedToken: { _id: string } },
+    { page: string; limit: string }
+  >,
+  res: Response
+) => {
+  try {
+    const posts = await PostService.findAllPost(req.body.decodedToken._id);
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    const filteredData = posts.slice(startIndex, endIndex);
+
+    res.status(200).json(filteredData);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json("나의 게시물을 가져오지 못했습니다");
+  }
+};
+
 export const findPost = async (
   req: Request<{ postId: string }>,
   res: Response
